@@ -1,0 +1,7 @@
+.DS_Store
+/firebase/
+application/vendor/*
+application/logs/*.php
+.env
+!application/*/.htaccess
+tmp

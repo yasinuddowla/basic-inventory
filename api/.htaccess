@@ -1,0 +1,27 @@
+# for apache servers
+<IfModule mod_env.c>
+    SetEnv CI_ENV development
+</IfModule>
+
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+
+# disable index view
+Options -Indexes
+
+# Hide a specific file
+<Files .env*>
+    Order allow,deny
+    Deny from all
+</Files>
+<Files *.json>
+    Order allow,deny
+    Deny from all
+</Files>
