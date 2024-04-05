@@ -25,7 +25,7 @@
     </table>
 </div>
 <div class="modal" tabindex="-1" id="addModal">
-    <?php $this->load->view('inventory/items/add') ?>
+    <?php $this->load->view('inventory/items/add', ['inventoryId' => $inventoryId]) ?>
 </div>
 
 <div class="modal" tabindex="-1" id="editModal">
