@@ -22,7 +22,12 @@
     <?php $this->load->view('inventory/add') ?>
 </div>
 
+<div class="modal" tabindex="-1" id="editModal">
+    <?php $this->load->view('inventory/edit') ?>
+</div>
+
 <script>
+    // load all inventory for this user
     document.addEventListener("DOMContentLoaded", function() {
         let url = `${apiBaseURL}inventory`
         makeRequest(url, null, {
@@ -47,8 +52,8 @@
                         // add buttons
                         const td = document.createElement("td");
                         td.innerHTML = `
-                            <button class="btn btn-sm btn-warning">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <button onClick="editInventory(${row.id})" class="btn btn-sm btn-warning">Edit</button>
+                            <button onClick="deleteInventory(${row.id})" class="btn btn-sm btn-danger">Delete</button>
                         `
                         tr.appendChild(td);
                         tbody.appendChild(tr);
@@ -60,4 +65,33 @@
                 console.error('Error:', error);
             });
     });
+</script>
+
+<script>
+    // get clicked item
+    function editInventory(invntoryId) {
+        let url = `${apiBaseURL}inventory/${invntoryId}`
+        let data = {
+            name: document.getElementById("inp-name").value,
+            description: document.getElementById("inp-description").value,
+        }
+        makeRequest(url, data, {
+                method: 'GET'
+            })
+            .then(response => {
+                if (response.error) {
+                    showToast('error', response.message)
+                } else {
+                    document.getElementById("edit-inp-id").value = response.data.id;
+                    document.getElementById("edit-inp-name").value = response.data.name;
+                    document.getElementById("edit-inp-description").value = response.data.description;
+
+                    showModal('editModal');
+                }
+            })
+            .catch(error => {
+                showToast('error', 'Something went wrong.');
+                console.error('Error:', error);
+            });
+    };
 </script>

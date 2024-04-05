@@ -40,7 +40,7 @@ class Inventory extends MY_Controller
 
         if (!$inventory = $this->inventoryModel->get([
             'user_id' => $this->userId,
-            'inventory_id' => $inventoryId
+            'id' => $inventoryId
         ], true)) {
             throwError(ITEM_NOT_FOUND, 'Inventory not found.');
         }
@@ -60,7 +60,7 @@ class Inventory extends MY_Controller
     {
         $data = $this->inventoryModel->get([
             'user_id' => $this->userId,
-            'inventory_id' => $inventoryId,
+            'id' => $inventoryId,
         ], true);
         if ($data) {
             $data['items'] = $this->itemModel->get([
