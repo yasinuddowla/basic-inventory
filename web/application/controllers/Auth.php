@@ -6,7 +6,6 @@ class Auth extends MY_Controller
     function __construct()
     {
         parent::__construct();
-        $this->nameSpace = 'auth';
     }
     function login()
     {

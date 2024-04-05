@@ -15,21 +15,19 @@
 </div>
 <script>
 	document.getElementById("signup").addEventListener("click", function() {
-		// Code to be executed when the button is clicked
-
-		makeRequest(`${apiBaseURL}register`, {
-				email: document.getElementById("emailInput").value,
-				password: document.getElementById("passInput").value,
-			}, {
-				method: 'POST'
-			})
+		let url = `${apiBaseURL}register`
+		let data = {
+			email: document.getElementById("emailInput").value,
+			password: document.getElementById("passInput").value,
+		}
+		makeRequest(url, data)
 			.then(response => {
 				if (response.error) {
 					showToast('error', response.message)
 				} else {
 					localStorage.setItem("lastResponse", JSON.stringify(response));
 					showToast('success', response.message)
-					redirectAfterDelay(`login`)
+					redirectAfterDelay(`login`, 500)
 				}
 			})
 			.catch(error => {

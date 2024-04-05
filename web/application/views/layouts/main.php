@@ -26,9 +26,23 @@
 	<main class="container">
 		<?php $this->load->view($mainView) ?>
 	</main>
-	<script src="<?= base_url('assets/custom.js') ?>"></script>
 	<script>
 		const apiBaseURL = `<?= config_item('api_url') ?>`
+	</script>
+	<script src="<?= base_url('assets/custom.js') ?>"></script>
+
+
+	<script>
+		let lastResponse = localStorage.getItem("lastResponse");
+		if (lastResponse) {
+			response = JSON.parse(lastResponse);
+			showToast(
+				response.error ? 'error' : 'success',
+				response.message
+			)
+			localStorage.removeItem('lastResponse')
+			localStorage.setItem('lastResponseCopy', lastResponse)
+		}
 	</script>
 </body>
 

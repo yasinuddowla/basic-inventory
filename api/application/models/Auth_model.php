@@ -50,7 +50,7 @@ class Auth_model extends MY_Model
 				'expires_at' => $this->expireAt,
 				'token' => $token,
 				'refresh_token' => $refreshToken,
-			]);
+			], 'Signed In');
 		} catch (Exception $e) {
 			throwError(JWT_PROCESSING_ERROR, $e->getMessage());
 		}
