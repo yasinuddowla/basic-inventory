@@ -22,4 +22,5 @@ jobs:
       - name: Deploy with rsync
         run: |
           chmod -R 777 api/application/logs
+          chmod -R 777 web/application/logs
           rsync -a --exclude-from='./deploy.ignore' ./ ${{ secrets.PROD_USERNAME }}@${{ secrets.PROD_SERVER }}:${{ secrets.PROD_UPLOAD_PATH }}

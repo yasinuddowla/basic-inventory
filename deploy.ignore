@@ -4,3 +4,6 @@
 .gitignore
 api/application/vendor/*
 api/application/logs/*.php
+
+web/application/vendor/*
+web/application/logs/*.php

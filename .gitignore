@@ -3,4 +3,7 @@ api/uploads/*
 api/application/vendor/*
 api/application/logs/*.php
 api/.env
-api/!application/*/.htaccess
+
+web/.DS_Store
+web/application/vendor/*
+web/application/logs/*.php
