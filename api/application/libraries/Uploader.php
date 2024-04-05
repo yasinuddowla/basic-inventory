@@ -8,6 +8,23 @@ class Uploader
     public $uploadDir = 'uploads/';
     public $uploadPath = '';
 
+    function uploadBase64($base64)
+    {
+        // Validate base64 string
+        if (!base64_decode($base64)) {
+            return null;
+        }
+
+        // Extract image type
+        $parts = explode(";base64,", $base64);
+        if (count($parts) != 2) return null;
+        $ext = explode("/", $parts[0])[1];
+
+        $imageData = base64_decode(trim(str_replace('data:image/' . $ext . ';base64,', "", $base64)));
+        $fileName = uniqid() . "." . $ext;
+
+        return file_put_contents("uploads/" . $fileName, $imageData) ? base_url('uploads/') . $fileName : null;
+    }
     function getLocalFileUrl($field, $config = [])
     {
         $config['allowed_types'] = '*';

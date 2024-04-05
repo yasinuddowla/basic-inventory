@@ -1,7 +1,6 @@
 .DS_Store
-/firebase/
+uploads/*
 application/vendor/*
 application/logs/*.php
 .env
 !application/*/.htaccess
-tmp

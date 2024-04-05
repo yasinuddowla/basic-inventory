@@ -11,7 +11,7 @@ class Auth_model extends MY_Model
 		parent::__construct();
 		$this->load->library('jwt');
 		$this->issuedAt = time();
-		$this->expireAt = $this->issuedAt + 60; // 60 seconds
+		$this->expireAt = $this->issuedAt + 600; // 10 mins
 		$this->table = 'auth';
 	}
 	public function get($filters = [], $returnRow = false)
