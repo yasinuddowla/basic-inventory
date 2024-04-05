@@ -11,6 +11,7 @@
                 <th>Description</th>
                 <th>Created At</th>
                 <th>Last Updated</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -37,8 +38,20 @@
                     // Create table rows and append to tbody
                     for (const row of response.data) {
                         delete row.user_id
-                        const tableRow = createTableData(row);
-                        tbody.appendChild(tableRow);
+                        const tr = document.createElement("tr");
+                        for (const value in row) {
+                            const td = document.createElement("td");
+                            td.textContent = row[value];
+                            tr.appendChild(td);
+                        }
+                        // add buttons
+                        const td = document.createElement("td");
+                        td.innerHTML = `
+                            <button class="btn btn-sm btn-warning">Edit</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        `
+                        tr.appendChild(td);
+                        tbody.appendChild(tr);
                     }
                 }
             })

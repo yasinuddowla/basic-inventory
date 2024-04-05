@@ -129,23 +129,4 @@ function redirectAfterDelay(url, delay = 2000) {
   }, delay);
 }
 
-// Function to create table header cells from object keys
-function createTableHeaders(data) {
-  const keys = Object.keys(data[0]); // Get object keys from the first object
-  for (const key of keys) {
-    const th = document.createElement("th");
-    th.textContent = key;
-    thead.appendChild(th);
-  }
-}
 
-// Function to create table row cells from object values
-function createTableData(rowData) {
-  const tr = document.createElement("tr");
-  for (const value in rowData) {
-    const td = document.createElement("td");
-    td.textContent = rowData[value];
-    tr.appendChild(td);
-  }
-  return tr;
-}

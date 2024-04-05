@@ -11,7 +11,6 @@
 
 	<!-- Custom styles/JS -->
 	<link href="<?= base_url('assets/styles.css') ?>" rel="stylesheet">
-	<link href="<?= base_url('assets/styles.css') ?>" rel="stylesheet">
 	<script src="<?= base_url('assets/color-modes.js') ?>"></script>
 </head>
 
