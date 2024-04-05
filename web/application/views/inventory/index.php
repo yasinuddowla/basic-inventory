@@ -26,6 +26,27 @@
     <?php $this->load->view('inventory/edit') ?>
 </div>
 
+<!-- Delete modal -->
+<div class="modal" tabindex="-1" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h1 class="modal-title fs-5">Delete Inventory</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" value="" id="delete-inp-id">
+                    <h3 class="text-center">Are you sure?</h3>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" id="deleteBtn" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     // load all inventory for this user
     document.addEventListener("DOMContentLoaded", function() {
@@ -53,7 +74,7 @@
                         const td = document.createElement("td");
                         td.innerHTML = `
                             <button onClick="editInventory(${row.id})" class="btn btn-sm btn-warning">Edit</button>
-                            <button onClick="deleteInventory(${row.id})" class="btn btn-sm btn-danger">Delete</button>
+                            <button onClick="showDeleteModal(${row.id})" class="btn btn-sm btn-danger">Delete</button>
                         `
                         tr.appendChild(td);
                         tbody.appendChild(tr);
@@ -68,9 +89,9 @@
 </script>
 
 <script>
-    // get clicked item
-    function editInventory(invntoryId) {
-        let url = `${apiBaseURL}inventory/${invntoryId}`
+    // get clicked item for edit
+    function editInventory(inventoryId) {
+        let url = `${apiBaseURL}inventory/${inventoryId}`
         let data = {
             name: document.getElementById("inp-name").value,
             description: document.getElementById("inp-description").value,
@@ -94,4 +115,29 @@
                 console.error('Error:', error);
             });
     };
+
+    // show delete modal
+    function showDeleteModal(inventoryId) {
+        document.getElementById("delete-inp-id").value = inventoryId;
+        showModal('deleteModal');
+    }
+
+    document.getElementById("deleteBtn").addEventListener("click", function() {
+        let inventoryId = document.getElementById("delete-inp-id").value
+        let url = `${apiBaseURL}inventory/${inventoryId}`
+        makeRequest(url, {}, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.error) {
+                    showToast('error', response.message)
+                } else {
+                    redirectAfterDelay(`./inventory`, 500)
+                }
+            })
+            .catch(error => {
+                showToast('error', 'Something went wrong.');
+                console.error('Error:', error);
+            });
+    });
 </script>
