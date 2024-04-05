@@ -56,8 +56,8 @@
 
 <script>
     // load all inventory for this user
+    var inventoryId = document.getElementById("inv-id").textContent
     document.addEventListener("DOMContentLoaded", function() {
-        let inventoryId = document.getElementById("inv-id").textContent
         let url = `${apiBaseURL}inventory/${inventoryId}`
         makeRequest(url, {}, {
                 method: 'GET'
@@ -129,14 +129,14 @@
     };
 
     // show delete modal
-    function showDeleteModal(inventoryId) {
-        document.getElementById("delete-inp-id").value = inventoryId;
+    function showDeleteModal(itemId) {
+        document.getElementById("delete-inp-id").value = itemId;
         showModal('deleteModal');
     }
 
     document.getElementById("deleteBtn").addEventListener("click", function() {
-        let inventoryId = document.getElementById("delete-inp-id").value
-        let url = `${apiBaseURL}inventory/${inventoryId}`
+        let itemId = document.getElementById("delete-inp-id").value
+        let url = `${apiBaseURL}inventory/items/${itemId}`
         makeRequest(url, {}, {
                 method: 'DELETE'
             })
@@ -144,7 +144,7 @@
                 if (response.error) {
                     showToast('error', response.message)
                 } else {
-                    redirectAfterDelay(`./inventory`, 500)
+                    redirectAfterDelay(`<?= base_url() ?>/inventory/details/${inventoryId}`, 100)
                 }
             })
             .catch(error => {

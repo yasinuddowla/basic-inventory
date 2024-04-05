@@ -51,7 +51,7 @@
                     showToast('error', response.message)
                 } else {
                     localStorage.setItem("lastResponse", JSON.stringify(response));
-                    redirectAfterDelay(`<?= base_url() ?>/inventory/details/${invId}`, 500)
+                    redirectAfterDelay(`<?= base_url() ?>/inventory/details/${invId}`, 100)
                 }
             })
             .catch(error => {
