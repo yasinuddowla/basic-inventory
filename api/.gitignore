@@ -1,6 +1,0 @@
-.DS_Store
-uploads/*
-application/vendor/*
-application/logs/*.php
-.env
-!application/*/.htaccess

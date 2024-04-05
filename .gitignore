@@ -1,0 +1,6 @@
+api/.DS_Store
+api/uploads/*
+api/application/vendor/*
+api/application/logs/*.php
+api/.env
+api/!application/*/.htaccess

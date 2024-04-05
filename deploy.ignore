@@ -1,0 +1,6 @@
+
+.github/*
+.git/*
+.gitignore
+api/application/vendor/*
+api/application/logs/*.php
