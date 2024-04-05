@@ -38,6 +38,7 @@
                 <form>
                     <input type="hidden" value="" id="delete-inp-id">
                     <h3 class="text-center">Are you sure?</h3>
+                    <p class="text-center">It'll remove all items unders this inventory.</p>
                 </form>
             </div>
             <div class="modal-footer">
