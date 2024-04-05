@@ -1,16 +1,22 @@
 <div class="card card-body w-75 m-auto">
-    <h1 class="me-auto">Inventory List</h1>
+    <h1>Inventory Details</h1>
+    <h4>ID: <span id="inv-id"><?= $inventoryId ?></span></h4>
+    <h4>Name: <span id="inv-name"></span></h4>
+    <h4>Description: <span id="inv-description"></span></h4>
+    <h2 class="mt-3">Items</h2>
     <div class="ms-auto">
         <button type="button" class="btn btn-info d-inline-block" data-bs-toggle="modal" data-bs-target="#addModal">Add</button>
     </div>
+
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Quantity</th>
+                <th>Image</th>
                 <th>Created At</th>
-                <th>Last Updated</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -19,11 +25,11 @@
     </table>
 </div>
 <div class="modal" tabindex="-1" id="addModal">
-    <?php $this->load->view('inventory/add') ?>
+    <?php $this->load->view('inventory/items/add') ?>
 </div>
 
 <div class="modal" tabindex="-1" id="editModal">
-    <?php $this->load->view('inventory/edit') ?>
+    <?php $this->load->view('inventory/items/edit') ?>
 </div>
 
 <!-- Delete modal -->
@@ -31,14 +37,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h1 class="modal-title fs-5">Delete Inventory</h1>
+                <h1 class="modal-title fs-5">Delete Item</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <input type="hidden" value="" id="delete-inp-id">
                     <h3 class="text-center">Are you sure?</h3>
-                    <p class="text-center">It'll remove all items unders this inventory.</p>
                 </form>
             </div>
             <div class="modal-footer">
@@ -48,37 +53,42 @@
         </div>
     </div>
 </div>
+
 <script>
     // load all inventory for this user
     document.addEventListener("DOMContentLoaded", function() {
-        let url = `${apiBaseURL}inventory`
-        makeRequest(url, null, {
+        let inventoryId = document.getElementById("inv-id").textContent
+        let url = `${apiBaseURL}inventory/${inventoryId}`
+        makeRequest(url, {}, {
                 method: 'GET'
             })
             .then(response => {
                 if (response.error) {
                     showToast('error', response.message)
                 } else {
+                    document.getElementById("inv-name").textContent = response.data.name
+                    document.getElementById("inv-description").textContent = response.data.description
+                    // load items table
                     const table = document.querySelector("table");
                     const tbody = table.querySelector("tbody");
 
                     // Create table rows and append to tbody
-                    for (const row of response.data) {
+                    for (const row of response.data.items) {
                         delete row.user_id
                         const tr = document.createElement("tr");
-                        for (const value in row) {
-                            const td = document.createElement("td");
-                            td.textContent = row[value];
-                            tr.appendChild(td);
-                        }
-                        // add buttons
-                        const td = document.createElement("td");
-                        td.innerHTML = `
-                            <a href="./inventory/details/${row.id}" class="btn btn-sm btn-info">Details</a>
+
+                        tr.innerHTML = `
+                        <td>${row.id}</td>
+                        <td>${row.name}</td>
+                        <td>${row.description}</td>
+                        <td>${row.quantity}</td>
+                        <td><a target="_blank" href="${row.image}">View</a></td>
+                        <td>${row.created_at}</td>
+                        <td>
                             <button onClick="editInventory(${row.id})" class="btn btn-sm btn-warning">Edit</button>
                             <button onClick="showDeleteModal(${row.id})" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
                         `
-                        tr.appendChild(td);
                         tbody.appendChild(tr);
                     }
                 }

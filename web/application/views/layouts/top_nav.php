@@ -27,12 +27,12 @@
         makeRequest(url, {})
             .then(response => {
                 localStorage.clear();
-                redirectAfterDelay(`./login`, 500)
+                redirectAfterDelay(`<?= base_url('login') ?>`, 500)
                 showToast('success', 'Logged out!');
             })
             .catch(error => {
                 showToast('success', 'Logged out!');
-                redirectAfterDelay(`./login`, 500)
+                redirectAfterDelay(`<?= base_url('login') ?>`, 500)
             });
     });
 </script>

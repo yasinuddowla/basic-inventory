@@ -10,6 +10,10 @@ Create an app that lets you manage an inventory. The app should have the followi
 - Each inventory belongs to a user, and has a name and a description.
 - Each item in an inventory has a name, description, image and a quantity.
 
+### API Documentation
+
+Read the API documetation [here](https://documenter.getpostman.com/view/10377348/2sA35LWfjV).
+
 ### Setup
 
 1. Create database

@@ -12,4 +12,10 @@ class Inventory extends MY_Controller
         $data['mainView'] = 'inventory/index';
         $this->load->view('layouts/main', $data);
     }
+    function details($invId)
+    {
+        $data['inventoryId'] = $invId;
+        $data['mainView'] = 'inventory/items/index';
+        $this->load->view('layouts/main', $data);
+    }
 }
